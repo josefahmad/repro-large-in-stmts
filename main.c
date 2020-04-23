@@ -8,9 +8,10 @@
 
 static char str_query[IN_ENTRIES * 10];
 
+char *uri_str = "mongodb://localhost:27017";
+
 void *threadEntry(void *threadid)
 {
-   const char *uri_str = "mongodb://localhost:27017";
    mongoc_client_t *client;
    mongoc_database_t *database;
    mongoc_collection_t *collection;
@@ -53,6 +54,10 @@ main (int argc, char *argv[])
       char *str;
    bool retval;
    char str_val[7];
+
+   if (argc > 1) {
+      uri_str = argv[1];
+   }
 
   int i;
   sprintf(str_query, "{ \"a\": { \"$in\": [");
